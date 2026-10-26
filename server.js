@@ -73,6 +73,9 @@ app.use('/files', express.static(UPLOAD_DIR, {
     const type = ALLOWED[path.extname(filePath).toLowerCase()];
     if (type) res.setHeader('Content-Type', type);
     res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Expose-Headers', 'Content-Length');
+    // Evita que proxies/CDN recompriman o modifiquen el archivo: se entrega byte a byte
+    res.setHeader('Cache-Control', 'public, max-age=31536000, no-transform');
   },
 }));
 
@@ -85,6 +88,14 @@ app.post('/api/upload', (req, res) => {
       return res.status(400).json({ error: msg });
     }
     if (!req.file) return res.status(400).json({ error: 'No se recibió ningún archivo' });
+
+    // El archivo guardado debe pesar exactamente lo mismo que el original
+    const expected = Number(req.body.size);
+    const saved = fs.statSync(req.file.path).size;
+    if (Number.isFinite(expected) && saved !== expected) {
+      fs.unlinkSync(req.file.path);
+      return res.status(400).json({ error: `El archivo guardado (${saved} bytes) no pesa lo mismo que el original (${expected} bytes). Vuelve a subirlo.` });
+    }
     res.json(fileInfo(req, req.file.filename));
   });
 });
