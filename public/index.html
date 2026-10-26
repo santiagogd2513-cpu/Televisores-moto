@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Subir audio y video</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --surface: #181b22;
+      --surface-2: #20242d;
+      --border: #2c313c;
+      --text: #e6e8ee;
+      --muted: #8b93a7;
+      --accent: #7c5cff;
+      --accent-hover: #6a48f5;
+      --success: #3ecf8e;
+      --error: #ff6b6b;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+    }
+    main { max-width: 760px; margin: 0 auto; padding: 48px 16px; }
+    h1 { margin: 0 0 4px; font-size: 1.8rem; }
+    .subtitle { margin: 0 0 32px; color: var(--muted); }
+
+    .dropzone {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; padding: 48px 16px;
+      border: 2px dashed var(--border); border-radius: var(--radius);
+      background: var(--surface); text-align: center; cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+    .dropzone:hover, .dropzone.drag { border-color: var(--accent); background: var(--surface-2); }
+    .dropzone svg { width: 40px; height: 40px; color: var(--accent); }
+    .dropzone strong { font-size: 1.05rem; }
+    .dropzone span { color: var(--muted); font-size: .9rem; }
+    .dropzone input { display: none; }
+
+    h2 { margin: 40px 0 12px; font-size: 1.1rem; color: var(--muted); font-weight: 600; }
+    .list { display: flex; flex-direction: column; gap: 12px; }
+    .empty { color: var(--muted); font-size: .95rem; }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+    }
+    .card-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+    .card-name { font-weight: 600; overflow-wrap: anywhere; }
+    .card-meta { color: var(--muted); font-size: .85rem; white-space: nowrap; }
+    .card.error { border-color: var(--error); }
+    .card .msg { margin-top: 8px; font-size: .9rem; color: var(--error); }
+
+    .progress { height: 6px; margin-top: 12px; background: var(--surface-2); border-radius: 99px; overflow: hidden; }
+    .progress > div { height: 100%; width: 0; background: var(--accent); transition: width .1s; }
+
+    .link-row { display: flex; gap: 8px; margin-top: 12px; }
+    .link-row input {
+      flex: 1; min-width: 0; padding: 10px 12px;
+      background: var(--bg); color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px;
+      font: inherit; font-size: .9rem;
+    }
+    button, .btn {
+      padding: 10px 14px; border: 0; border-radius: 8px;
+      background: var(--accent); color: #fff; font: inherit; font-size: .9rem; font-weight: 600;
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+    }
+    button:hover, .btn:hover { background: var(--accent-hover); }
+    .btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+    .btn.secondary:hover { background: var(--border); }
+    button.copied { background: var(--success); }
+
+    audio, video { width: 100%; margin-top: 12px; border-radius: 8px; background: #000; }
+    audio { background: transparent; }
+
+    @media (max-width: 520px) {
+      .link-row { flex-wrap: wrap; }
+      .link-row input { flex-basis: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Subir audio y video</h1>
+    <p class="subtitle">Sube archivos .mp3, .mp4, .ogg o .wav y obtén un enlace directo al instante.</p>
+
+    <label class="dropzone" id="dropzone">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+      </svg>
+      <strong>Arrastra tus archivos aquí o haz clic para elegir</strong>
+      <span>Formatos: MP3 · MP4 · OGG · WAV</span>
+      <input type="file" id="fileInput" multiple accept=".mp3,.mp4,.ogg,.wav,audio/mpeg,video/mp4,audio/ogg,audio/wav">
+    </label>
+
+    <h2>Archivos subidos</h2>
+    <div class="list" id="list"><p class="empty" id="empty">Todavía no hay archivos.</p></div>
+  </main>
+
+  <script>
+    const ALLOWED = ['mp3', 'mp4', 'ogg', 'wav'];
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('fileInput');
+    const list = document.getElementById('list');
+    const empty = document.getElementById('empty');
+
+    function formatSize(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 ** 2) return (bytes / 1024).toFixed(1) + ' KB';
+      if (bytes < 1024 ** 3) return (bytes / 1024 ** 2).toFixed(1) + ' MB';
+      return (bytes / 1024 ** 3).toFixed(2) + ' GB';
+    }
+
+    function el(tag, props = {}, children = []) {
+      const node = Object.assign(document.createElement(tag), props);
+      node.append(...children);
+      return node;
+    }
+
+    function newCard(name, meta) {
+      empty.remove();
+      const card = el('div', { className: 'card' }, [
+        el('div', { className: 'card-head' }, [
+          el('div', { className: 'card-name', textContent: name }),
+          el('div', { className: 'card-meta', textContent: meta }),
+        ]),
+      ]);
+      list.prepend(card);
+      return card;
+    }
+
+    function showResult(card, file) {
+      card.querySelector('.card-name').textContent = file.name;
+      card.querySelector('.card-meta').textContent = formatSize(file.size);
+      card.querySelector('.progress')?.remove();
+
+      const input = el('input', { type: 'text', value: file.url, readOnly: true });
+      input.addEventListener('focus', () => input.select());
+      const copy = el('button', { type: 'button', textContent: 'Copiar' });
+      copy.addEventListener('click', async () => {
+        try { await navigator.clipboard.writeText(file.url); }
+        catch { input.select(); document.execCommand('copy'); }
+        copy.textContent = '¡Copiado!';
+        copy.classList.add('copied');
+        setTimeout(() => { copy.textContent = 'Copiar'; copy.classList.remove('copied'); }, 1500);
+      });
+      const open = el('a', { className: 'btn secondary', href: file.url, target: '_blank', rel: 'noopener', textContent: 'Abrir' });
+
+      const player = file.type.startsWith('video')
+        ? el('video', { src: file.url, controls: true, preload: 'metadata' })
+        : el('audio', { src: file.url, controls: true, preload: 'none' });
+
+      card.append(el('div', { className: 'link-row' }, [input, copy, open]), player);
+    }
+
+    function uploadFile(file) {
+      const ext = file.name.split('.').pop().toLowerCase();
+      const card = newCard(file.name, formatSize(file.size));
+
+      if (!ALLOWED.includes(ext)) {
+        card.classList.add('error');
+        card.append(el('div', { className: 'msg', textContent: 'Formato no permitido. Solo .mp3, .mp4, .ogg y .wav' }));
+        return;
+      }
+
+      const bar = el('div');
+      card.append(el('div', { className: 'progress' }, [bar]));
+
+      const form = new FormData();
+      form.append('file', file);
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/api/upload');
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) {
+          const pct = Math.round((e.loaded / e.total) * 100);
+          bar.style.width = pct + '%';
+          card.querySelector('.card-meta').textContent = pct + '%';
+        }
+      };
+      xhr.onload = () => {
+        let data = {};
+        try { data = JSON.parse(xhr.responseText); } catch {}
+        if (xhr.status === 200) return showResult(card, data);
+        fail(data.error || 'Error al subir el archivo');
+      };
+      xhr.onerror = () => fail('Error de conexión');
+      xhr.send(form);
+
+      function fail(msg) {
+        card.classList.add('error');
+        card.querySelector('.progress')?.remove();
+        card.querySelector('.card-meta').textContent = formatSize(file.size);
+        card.append(el('div', { className: 'msg', textContent: msg }));
+      }
+    }
+
+    function handleFiles(files) { [...files].forEach(uploadFile); }
+
+    fileInput.addEventListener('change', () => { handleFiles(fileInput.files); fileInput.value = ''; });
+    ['dragenter', 'dragover'].forEach((ev) => dropzone.addEventListener(ev, (e) => {
+      e.preventDefault(); dropzone.classList.add('drag');
+    }));
+    ['dragleave', 'drop'].forEach((ev) => dropzone.addEventListener(ev, (e) => {
+      e.preventDefault(); dropzone.classList.remove('drag');
+    }));
+    dropzone.addEventListener('drop', (e) => handleFiles(e.dataTransfer.files));
+
+    // Cargar archivos ya subidos
+    fetch('/api/files')
+      .then((r) => r.json())
+      .then((files) => files.reverse().forEach((f) => showResult(newCard(f.name, formatSize(f.size)), f)))
+      .catch(() => {});
+  </script>
+</body>
+</html>

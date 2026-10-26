@@ -1,0 +1,14 @@
+{
+  "name": "televisores-moto",
+  "version": "1.0.0",
+  "description": "Página para subir archivos de audio y video (.mp3, .mp4, .ogg, .wav) y obtener un enlace directo.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "multer": "^2.0.2"
+  }
+}
