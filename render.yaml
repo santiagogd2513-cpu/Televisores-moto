@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: televisores-moto
+    runtime: node
+    plan: free
+    branch: claude/audio-video-upload-page-ywby40
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/files
+    envVars:
+      - key: MAX_SIZE_MB
+        value: "500"
