@@ -3,6 +3,7 @@ const multer = require('multer');
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
+const fileStore = require('./storage');
 
 const PORT = process.env.PORT || 3000;
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
@@ -61,8 +62,12 @@ function fileInfo(req, name) {
     size: stat.size,
     type: ALLOWED[path.extname(name).toLowerCase()],
     uploadedAt: stat.mtime,
-    url: `${req.protocol}://${req.get('host')}/files/${encodeURIComponent(name)}`,
+    url: localUrl(req, name),
   };
+}
+
+function localUrl(req, name) {
+  return `${req.protocol}://${req.get('host')}/files/${encodeURIComponent(name)}`;
 }
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -80,7 +85,7 @@ app.use('/files', express.static(UPLOAD_DIR, {
 }));
 
 app.post('/api/upload', (req, res) => {
-  upload.single('file')(req, res, (err) => {
+  upload.single('file')(req, res, async (err) => {
     if (err) {
       const msg = err.code === 'LIMIT_FILE_SIZE'
         ? `El archivo supera el límite de ${MAX_SIZE_MB} MB`
@@ -89,25 +94,57 @@ app.post('/api/upload', (req, res) => {
     }
     if (!req.file) return res.status(400).json({ error: 'No se recibió ningún archivo' });
 
-    // El archivo guardado debe pesar exactamente lo mismo que el original
+    const name = req.file.filename;
+    const type = ALLOWED[path.extname(name).toLowerCase()];
     const expected = Number(req.body.size);
-    const saved = fs.statSync(req.file.path).size;
-    if (Number.isFinite(expected) && saved !== expected) {
-      fs.unlinkSync(req.file.path);
-      return res.status(400).json({ error: `El archivo guardado (${saved} bytes) no pesa lo mismo que el original (${expected} bytes). Vuelve a subirlo.` });
+
+    // El archivo recibido debe pesar exactamente lo mismo que el original
+    const received = req.file.size;
+    if (Number.isFinite(expected) && received !== expected) {
+      fs.rmSync(req.file.path, { force: true });
+      return res.status(400).json({ error: `El archivo recibido (${received} bytes) no pesa lo mismo que el original (${expected} bytes). Vuelve a subirlo.` });
     }
-    res.json(fileInfo(req, req.file.filename));
+
+    let saved;
+    try {
+      saved = await fileStore.save(req.file.path, name, type);
+    } catch (e) {
+      console.error('Error al guardar en el almacenamiento:', e);
+      return res.status(500).json({ error: 'No se pudo guardar el archivo en el almacenamiento. Vuelve a intentarlo.' });
+    }
+    if (Number.isFinite(expected) && saved !== expected) {
+      return res.status(500).json({ error: `El archivo guardado (${saved} bytes) no pesa lo mismo que el original (${expected} bytes). Vuelve a subirlo.` });
+    }
+
+    res.json({
+      name,
+      size: saved,
+      type,
+      uploadedAt: new Date(),
+      url: fileStore.enabled ? fileStore.publicUrl(name) : localUrl(req, name),
+      permanent: fileStore.enabled,
+    });
   });
 });
 
-app.get('/api/files', (req, res) => {
-  const files = fs.readdirSync(UPLOAD_DIR)
-    .filter((name) => ALLOWED[path.extname(name).toLowerCase()])
-    .map((name) => fileInfo(req, name))
-    .sort((a, b) => b.uploadedAt - a.uploadedAt);
-  res.json(files);
+app.get('/api/files', async (req, res) => {
+  try {
+    const files = fileStore.enabled
+      ? await fileStore.list(ALLOWED)
+      : fs.readdirSync(UPLOAD_DIR)
+        .filter((name) => ALLOWED[path.extname(name).toLowerCase()])
+        .map((name) => fileInfo(req, name));
+    files.forEach((f) => { f.permanent = fileStore.enabled; });
+    res.json(files.sort((a, b) => new Date(b.uploadedAt) - new Date(a.uploadedAt)));
+  } catch (e) {
+    console.error('Error al listar archivos:', e);
+    res.status(500).json({ error: 'No se pudo cargar la lista de archivos' });
+  }
 });
 
 app.listen(PORT, () => {
   console.log(`Servidor listo en http://localhost:${PORT}`);
+  console.log(fileStore.enabled
+    ? 'Almacenamiento: bucket externo (enlaces permanentes)'
+    : 'Almacenamiento: disco local (en Render gratis los archivos se borran al reiniciar)');
 });

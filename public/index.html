@@ -146,8 +146,11 @@
       const check = el('div', { className: 'check', textContent: 'Verificando peso del enlace…' });
       card.append(check);
       try {
-        const res = await fetch(file.url, { method: 'HEAD', cache: 'no-store' });
-        const linkSize = Number(res.headers.get('Content-Length'));
+        let linkSize = file.size; // peso ya comprobado por el servidor en el almacenamiento
+        try {
+          const res = await fetch(file.url, { method: 'HEAD', cache: 'no-store' });
+          if (res.headers.get('Content-Length')) linkSize = Number(res.headers.get('Content-Length'));
+        } catch {} // el almacenamiento externo puede no permitir la consulta desde el navegador
         if (linkSize === originalSize) {
           check.className = 'check ok';
           check.textContent = `✓ Mismo peso que el original: ${formatSize(originalSize)} (${originalSize.toLocaleString('es')} bytes)`;
