@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="192dp" android:height="192dp" android:viewportWidth="192" android:viewportHeight="192">
+
+    <path android:pathData="M96,16 A80,80 0 1,1 95.9,16 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="72" android:centerY="64" android:gradientRadius="100">
+                <item android:offset="0" android:color="#E1BEE7"/>
+                <item android:offset="0.4" android:color="#BA68C8"/>
+                <item android:offset="0.75" android:color="#9C27B0"/>
+                <item android:offset="1" android:color="#7B1FA2"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.30"/>
+
+    <!-- Game controller -->
+    <path android:pathData="M64,90 h64 a18,14 0 0,1 18,14 v12 a18,14 0 0,1 -18,14 h-12 l-8,12 v-12 h-26 a18,14 0 0,1 -18,-14 v-12 a18,14 0 0,1 18,-14 z" android:fillColor="#FFFFFF" android:fillAlpha="0.95"/>
+    <path android:pathData="M80,104 m-6,0 a6,6 0 1,1 12,0 a6,6 0 1,1 -12,0" android:fillColor="#9C27B0"/>
+    <path android:pathData="M112,100 h12" android:strokeWidth="5" android:strokeColor="#9C27B0" android:strokeLineCap="round"/>
+    <path android:pathData="M118,94 v12" android:strokeWidth="5" android:strokeColor="#9C27B0" android:strokeLineCap="round"/>
+
+</vector>
