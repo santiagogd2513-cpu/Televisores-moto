@@ -1,0 +1,77 @@
+name: Build and Release Icon Pack
+
+on:
+  push:
+    branches:
+      - icon-pack-oneui-spheres
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Grant execute permission for gradlew
+        run: |
+          if [ -f ./gradlew ]; then
+            chmod +x ./gradlew
+          else
+            # Create a minimal gradlew if missing
+            echo "No gradlew found, will use gradle wrapper generation"
+          fi
+
+      - name: Build with Gradle
+        run: |
+          # Generate wrapper if needed
+          if [ ! -f ./gradlew ]; then
+            gradle wrapper --gradle-version 8.2
+          fi
+          chmod +x ./gradlew
+          ./gradlew assembleRelease --stacktrace
+
+      - name: Find APK
+        id: find_apk
+        run: |
+          APK_PATH=$(find app/build/outputs/apk -name "*.apk" | head -n 1)
+          echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
+          echo "Found APK at: $APK_PATH"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SphereGradient-APK
+          path: ${{ steps.find_apk.outputs.apk_path }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0-${{ github.run_number }}
+          name: Sphere Gradient Icon Pack v1.0.0 (${{ github.run_number }})
+          body: |
+            ## Sphere Gradient Icon Pack
+            3D spheres with beautiful gradients for Samsung One UI + Theme Park.
+
+            ### How to use:
+            1. Download and install the APK
+            2. Open **Theme Park** → Icon → Create New → Iconpack
+            3. Select **Sphere Gradient**
+            4. Apply
+
+            Enjoy the spheres!
+          files: ${{ steps.find_apk.outputs.apk_path }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
