@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
-    android:width="192dp"
-    android:height="192dp"
-    android:viewportWidth="192"
-    android:viewportHeight="192">
+    android:width="192dp" android:height="192dp" android:viewportWidth="192" android:viewportHeight="192">
 
-    <!-- Main sphere body -->
+    <!-- Sphere base -->
     <path android:pathData="M96,16 A80,80 0 1,1 95.9,16 Z">
         <aapt:attr name="android:fillColor">
-            <gradient
-                android:type="radial"
-                android:centerX="72"
-                android:centerY="64"
-                android:gradientRadius="100">
+            <gradient android:type="radial" android:centerX="72" android:centerY="64" android:gradientRadius="100">
                 <item android:offset="0" android:color="#A5D8FF"/>
                 <item android:offset="0.4" android:color="#4DABF7"/>
-                <item android:offset="0.75" android:color="#1C7ED6"/>
-                <item android:offset="1" android:color="#0B4F8C"/>
+                <item android:offset="0.75" android:color="#228BE6"/>
+                <item android:offset="1" android:color="#1C7ED6"/>
             </gradient>
         </aapt:attr>
     </path>
 
     <!-- Highlight -->
-    <path
-        android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z"
-        android:fillColor="#FFFFFF"
-        android:fillAlpha="0.35"/>
+    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.32"/>
+    <path android:pathData="M80,55 A22,18 0 1,1 79.9,55 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.18"/>
 
-    <!-- Soft inner glow -->
+    <!-- Message bubble symbol (center) -->
     <path
-        android:pathData="M80,55 A22,18 0 1,1 79.9,55 Z"
+        android:pathData="M62,72 h68 a18,18 0 0,1 18,18 v28 a18,18 0 0,1 -18,18 h-20 l-16,16 v-16 h-32 a18,18 0 0,1 -18,-18 v-28 a18,18 0 0,1 18,-18 z"
         android:fillColor="#FFFFFF"
-        android:fillAlpha="0.2"/>
+        android:fillAlpha="0.92"/>
+
+    <!-- Three dots inside bubble -->
+    <path android:pathData="M78,98 m-5,0 a5,5 0 1,1 10,0 a5,5 0 1,1 -10,0" android:fillColor="#228BE6"/>
+    <path android:pathData="M96,98 m-5,0 a5,5 0 1,1 10,0 a5,5 0 1,1 -10,0" android:fillColor="#228BE6"/>
+    <path android:pathData="M114,98 m-5,0 a5,5 0 1,1 10,0 a5,5 0 1,1 -10,0" android:fillColor="#228BE6"/>
+
 </vector>
