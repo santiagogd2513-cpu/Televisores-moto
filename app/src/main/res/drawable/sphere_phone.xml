@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="192dp" android:height="192dp" android:viewportWidth="192" android:viewportHeight="192">
+
+    <path android:pathData="M96,16 A80,80 0 1,1 95.9,16 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="72" android:centerY="64" android:gradientRadius="100">
+                <item android:offset="0" android:color="#C8E6C9"/>
+                <item android:offset="0.4" android:color="#66BB6A"/>
+                <item android:offset="0.75" android:color="#43A047"/>
+                <item android:offset="1" android:color="#2E7D32"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.30"/>
+
+    <!-- Classic phone handset -->
+    <path android:pathData="M72,78 c-8,0 -14,6 -14,14 v6 c0,4 2,7 5,9 l12,7 c2,1 3,4 3,6 v10 c0,5 4,9 9,9 h20 c5,0 9,-4 9,-9 v-10 c0,-2 1,-5 3,-6 l12,-7 c3,-2 5,-5 5,-9 v-6 c0,-8 -6,-14 -14,-14 h-8 c-2,0 -4,1 -5,3 l-4,8 h-10 l-4,-8 c-1,-2 -3,-3 -5,-3 z" android:fillColor="#FFFFFF" android:fillAlpha="0.95"/>
+
+</vector>
