@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="192dp" android:height="192dp" android:viewportWidth="192" android:viewportHeight="192">
+
+    <path android:pathData="M96,16 A80,80 0 1,1 95.9,16 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="72" android:centerY="64" android:gradientRadius="100">
+                <item android:offset="0" android:color="#D1C4E9"/>
+                <item android:offset="0.4" android:color="#9575CD"/>
+                <item android:offset="0.75" android:color="#7E57C2"/>
+                <item android:offset="1" android:color="#5E35B1"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.30"/>
+
+    <!-- Game controller / Discord style -->
+    <path android:pathData="M70,80 h52 a16,16 0 0,1 16,16 v20 a16,16 0 0,1 -16,16 h-12 l-8,12 v-12 h-32 a16,16 0 0,1 -16,-16 v-20 a16,16 0 0,1 16,-16 z" android:fillColor="#FFFFFF" android:fillAlpha="0.95"/>
+    <path android:pathData="M82,100 m-6,0 a6,6 0 1,1 12,0 a6,6 0 1,1 -12,0" android:fillColor="#7E57C2"/>
+    <path android:pathData="M110,100 m-6,0 a6,6 0 1,1 12,0 a6,6 0 1,1 -12,0" android:fillColor="#7E57C2"/>
+
+</vector>
