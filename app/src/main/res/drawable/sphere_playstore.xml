@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="192dp" android:height="192dp" android:viewportWidth="192" android:viewportHeight="192">
+
+    <path android:pathData="M96,16 A80,80 0 1,1 95.9,16 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="72" android:centerY="64" android:gradientRadius="100">
+                <item android:offset="0" android:color="#B2DFDB"/>
+                <item android:offset="0.4" android:color="#4DB6AC"/>
+                <item android:offset="0.75" android:color="#009688"/>
+                <item android:offset="1" android:color="#00796B"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.30"/>
+
+    <!-- Shopping bag -->
+    <path android:pathData="M72,80 h48 a8,8 0 0,1 8,8 v40 a8,8 0 0,1 -8,8 h-48 a8,8 0 0,1 -8,-8 v-40 a8,8 0 0,1 8,-8 z" android:fillColor="#FFFFFF" android:fillAlpha="0.95"/>
+    <path android:pathData="M84,80 v-8 a12,12 0 0,1 24,0 v8" android:strokeWidth="6" android:strokeColor="#009688" android:fillColor="#00000000"/>
+
+</vector>
