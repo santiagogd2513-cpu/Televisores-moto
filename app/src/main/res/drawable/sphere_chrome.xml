@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="192dp" android:height="192dp" android:viewportWidth="192" android:viewportHeight="192">
+
+    <path android:pathData="M96,16 A80,80 0 1,1 95.9,16 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="72" android:centerY="64" android:gradientRadius="100">
+                <item android:offset="0" android:color="#BBDEFB"/>
+                <item android:offset="0.4" android:color="#64B5F6"/>
+                <item android:offset="0.75" android:color="#1E88E5"/>
+                <item android:offset="1" android:color="#1565C0"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.30"/>
+
+    <!-- Chrome circle -->
+    <path android:pathData="M96,96 m-28,0 a28,28 0 1,1 56,0 a28,28 0 1,1 -56,0" android:fillColor="#FFFFFF" android:fillAlpha="0.95"/>
+    <path android:pathData="M96,96 m-14,0 a14,14 0 1,1 28,0 a14,14 0 1,1 -28,0" android:fillColor="#1E88E5"/>
+
+</vector>
