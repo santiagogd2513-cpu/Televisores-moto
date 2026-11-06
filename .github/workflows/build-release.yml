@@ -23,21 +23,12 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
-      - name: Grant execute permission for gradlew
+      - name: Create Gradle Wrapper
         run: |
-          if [ -f ./gradlew ]; then
-            chmod +x ./gradlew
-          else
-            # Create a minimal gradlew if missing
-            echo "No gradlew found, will use gradle wrapper generation"
-          fi
+          gradle wrapper --gradle-version 8.4
 
-      - name: Build with Gradle
+      - name: Build Release APK
         run: |
-          # Generate wrapper if needed
-          if [ ! -f ./gradlew ]; then
-            gradle wrapper --gradle-version 8.2
-          fi
           chmod +x ./gradlew
           ./gradlew assembleRelease --stacktrace
 
@@ -47,6 +38,7 @@ jobs:
           APK_PATH=$(find app/build/outputs/apk -name "*.apk" | head -n 1)
           echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
           echo "Found APK at: $APK_PATH"
+          ls -la app/build/outputs/apk/release/ || true
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
