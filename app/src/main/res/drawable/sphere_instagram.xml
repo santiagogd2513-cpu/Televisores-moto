@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="192dp" android:height="192dp" android:viewportWidth="192" android:viewportHeight="192">
+
+    <path android:pathData="M96,16 A80,80 0 1,1 95.9,16 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="72" android:centerY="64" android:gradientRadius="100">
+                <item android:offset="0" android:color="#F8BBD9"/>
+                <item android:offset="0.4" android:color="#F06292"/>
+                <item android:offset="0.75" android:color="#E91E63"/>
+                <item android:offset="1" android:color="#C2185B"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.30"/>
+
+    <!-- Camera square -->
+    <path android:pathData="M68,68 h56 a12,12 0 0,1 12,12 v56 a12,12 0 0,1 -12,12 h-56 a12,12 0 0,1 -12,-12 v-56 a12,12 0 0,1 12,-12 z" android:fillColor="#FFFFFF" android:fillAlpha="0.95"/>
+    <path android:pathData="M96,96 m-16,0 a16,16 0 1,1 32,0 a16,16 0 1,1 -32,0" android:fillColor="#E91E63"/>
+    <path android:pathData="M120,80 m-5,0 a5,5 0 1,1 10,0 a5,5 0 1,1 -10,0" android:fillColor="#E91E63"/>
+
+</vector>
