@@ -49,24 +49,26 @@ jobs:
           name: SphereGradient-APK
           path: ${{ steps.find_apk.outputs.apk_path }}
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v1.0.0-${{ github.run_number }}
-          name: Sphere Gradient Icon Pack v1.0.0 (${{ github.run_number }})
-          body: |
-            ## Sphere Gradient Icon Pack
-            3D spheres with beautiful gradients for Samsung One UI + Theme Park.
-
-            ### How to use:
-            1. Download and install the APK
-            2. Open **Theme Park** → Icon → Create New → Iconpack
-            3. Select **Sphere Gradient**
-            4. Apply
-
-            Enjoy the spheres!
-          files: ${{ steps.find_apk.outputs.apk_path }}
-          draft: false
-          prerelease: false
+      - name: Create GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="v1.0.${{ github.run_number }}"
+          TITLE="Sphere Gradient Icon Pack v1.0.${{ github.run_number }}"
+          BODY="## Sphere Gradient Icon Pack
+          3D spheres with beautiful gradients for Samsung One UI + Theme Park.
+
+          ### How to use:
+          1. Download and install the APK
+          2. Open **Theme Park** → Icon → Create New → Iconpack
+          3. Select **Sphere Gradient**
+          4. Apply
+
+          Enjoy the spheres!"
+
+          # Create the release and upload the APK
+          gh release create "$TAG" \
+            "${{ steps.find_apk.outputs.apk_path }}" \
+            --title "$TITLE" \
+            --notes "$BODY" \
+            --latest
