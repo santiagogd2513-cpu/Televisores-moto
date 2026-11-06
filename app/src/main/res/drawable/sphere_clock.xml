@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="192dp" android:height="192dp" android:viewportWidth="192" android:viewportHeight="192">
+
+    <path android:pathData="M96,16 A80,80 0 1,1 95.9,16 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="72" android:centerY="64" android:gradientRadius="100">
+                <item android:offset="0" android:color="#BBDEFB"/>
+                <item android:offset="0.4" android:color="#64B5F6"/>
+                <item android:offset="0.75" android:color="#1E88E5"/>
+                <item android:offset="1" android:color="#1565C0"/>
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.30"/>
+
+    <!-- Clock face -->
+    <path android:pathData="M96,96 m-34,0 a34,34 0 1,1 68,0 a34,34 0 1,1 -68,0" android:fillColor="#FFFFFF" android:fillAlpha="0.95"/>
+    <path android:pathData="M96,96 L96,74" android:strokeWidth="6" android:strokeColor="#1E88E5" android:strokeLineCap="round"/>
+    <path android:pathData="M96,96 L112,108" android:strokeWidth="5" android:strokeColor="#1E88E5" android:strokeLineCap="round"/>
+    <path android:pathData="M96,96 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0" android:fillColor="#1E88E5"/>
+
+</vector>
