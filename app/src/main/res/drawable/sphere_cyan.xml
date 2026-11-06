@@ -2,6 +2,8 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="192dp" android:height="192dp" android:viewportWidth="192" android:viewportHeight="192">
+
+    <!-- Sphere -->
     <path android:pathData="M96,16 A80,80 0 1,1 95.9,16 Z">
         <aapt:attr name="android:fillColor">
             <gradient android:type="radial" android:centerX="72" android:centerY="64" android:gradientRadius="100">
@@ -12,6 +14,15 @@
             </gradient>
         </aapt:attr>
     </path>
-    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.35"/>
-    <path android:pathData="M80,55 A22,18 0 1,1 79.9,55 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.2"/>
+
+    <!-- Highlight -->
+    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.32"/>
+    <path android:pathData="M80,55 A22,18 0 1,1 79.9,55 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.18"/>
+
+    <!-- Phone handset symbol -->
+    <path
+        android:pathData="M78,70 c-8,0 -14,6 -14,14 v8 c0,4 2,8 6,10 l8,4 c3,1.5 5,4.5 5,8 v6 c0,5 4,9 9,9 h12 c5,0 9,-4 9,-9 v-6 c0,-3.5 2,-6.5 5,-8 l8,-4 c4,-2 6,-6 6,-10 v-8 c0,-8 -6,-14 -14,-14 h-8 c-2,0 -4,1 -5,3 l-4,7 c-1,2 -3,3 -5,3 h-6 c-2,0 -4,-1 -5,-3 l-4,-7 c-1,-2 -3,-3 -5,-3 z"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.92"/>
+
 </vector>
