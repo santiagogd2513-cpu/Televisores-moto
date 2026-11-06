@@ -2,6 +2,8 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="192dp" android:height="192dp" android:viewportWidth="192" android:viewportHeight="192">
+
+    <!-- Sphere -->
     <path android:pathData="M96,16 A80,80 0 1,1 95.9,16 Z">
         <aapt:attr name="android:fillColor">
             <gradient android:type="radial" android:centerX="72" android:centerY="64" android:gradientRadius="100">
@@ -12,6 +14,26 @@
             </gradient>
         </aapt:attr>
     </path>
-    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.35"/>
-    <path android:pathData="M80,55 A22,18 0 1,1 79.9,55 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.2"/>
+
+    <!-- Highlight -->
+    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.32"/>
+    <path android:pathData="M80,55 A22,18 0 1,1 79.9,55 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.18"/>
+
+    <!-- Calculator body -->
+    <path
+        android:pathData="M64,68 h64 a12,12 0 0,1 12,12 v56 a12,12 0 0,1 -12,12 h-64 a12,12 0 0,1 -12,-12 v-56 a12,12 0 0,1 12,-12 z"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.92"/>
+
+    <!-- Display -->
+    <path android:pathData="M72,78 h48 a4,4 0 0,1 4,4 v12 a4,4 0 0,1 -4,4 h-48 a4,4 0 0,1 -4,-4 v-12 a4,4 0 0,1 4,-4 z" android:fillColor="#FF922B"/>
+
+    <!-- Buttons (simple grid) -->
+    <path android:pathData="M74,104 h12 v10 h-12 z" android:fillColor="#FF922B"/>
+    <path android:pathData="M90,104 h12 v10 h-12 z" android:fillColor="#FF922B"/>
+    <path android:pathData="M106,104 h12 v10 h-12 z" android:fillColor="#FF922B"/>
+    <path android:pathData="M74,118 h12 v10 h-12 z" android:fillColor="#FF922B"/>
+    <path android:pathData="M90,118 h12 v10 h-12 z" android:fillColor="#FF922B"/>
+    <path android:pathData="M106,118 h12 v10 h-12 z" android:fillColor="#FF922B"/>
+
 </vector>
