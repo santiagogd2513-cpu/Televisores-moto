@@ -2,6 +2,8 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="192dp" android:height="192dp" android:viewportWidth="192" android:viewportHeight="192">
+
+    <!-- Sphere -->
     <path android:pathData="M96,16 A80,80 0 1,1 95.9,16 Z">
         <aapt:attr name="android:fillColor">
             <gradient android:type="radial" android:centerX="72" android:centerY="64" android:gradientRadius="100">
@@ -12,6 +14,19 @@
             </gradient>
         </aapt:attr>
     </path>
-    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.35"/>
-    <path android:pathData="M80,55 A22,18 0 1,1 79.9,55 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.2"/>
+
+    <!-- Highlight -->
+    <path android:pathData="M60,40 A35,28 0 1,1 59.9,40 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.32"/>
+    <path android:pathData="M80,55 A22,18 0 1,1 79.9,55 Z" android:fillColor="#FFFFFF" android:fillAlpha="0.18"/>
+
+    <!-- Clock circle -->
+    <path android:pathData="M96,96 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0" android:fillColor="#FFFFFF" android:fillAlpha="0.92"/>
+
+    <!-- Clock hands -->
+    <path android:pathData="M96,96 L96,72" android:strokeWidth="6" android:strokeColor="#5C7CFA" android:strokeLineCap="round"/>
+    <path android:pathData="M96,96 L112,108" android:strokeWidth="5" android:strokeColor="#5C7CFA" android:strokeLineCap="round"/>
+
+    <!-- Center dot -->
+    <path android:pathData="M96,96 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0" android:fillColor="#5C7CFA"/>
+
 </vector>
