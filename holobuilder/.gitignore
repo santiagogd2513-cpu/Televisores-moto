@@ -1,0 +1,27 @@
+# Gradle
+.gradle/
+build/
+out/
+run/
+run-data/
+logs/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+eclipse/
+bin/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Minecraft
+*.log
+crash-reports/
+
+# Local secrets
+*.local
