@@ -5,31 +5,47 @@ Mod de Minecraft **1.20.1** (Forge **47.4.5**) que añade un menú simple (tecla
 ## Características
 
 - Tecla **C** → abre el menú
-- **Construir holograma**: intenta colocar los bloques del placement seleccionado de Forgematica
-- **Deshacer holograma construido**: revierte los bloques colocados por el último build
+- **Construir holograma**: lee el placement seleccionado de Forgematica y coloca los bloques con el `BlockState` correcto
+- **Deshacer holograma construido**: revierte los bloques del último build
 - **Cerrar menú**
-- Funciona en **supervivencia** consumiendo ítems del inventario del jugador
+- Funciona en **supervivencia** consumiendo ítems del inventario
 - En creativo no consume ítems
+- Soft-dependency de Forgematica (el mod carga aunque no esté instalado; solo avisa)
 
 ## Dependencias
 
 - Minecraft 1.20.1
 - Forge 47.4.5 (o compatible)
-- **Forgematica** + **MaFgLib** (recomendado / necesario para leer el holograma real)
+- **Forgematica** + **MaFgLib** (necesario para leer el holograma real)
 
 ## Cómo usar
 
 1. Instala Forgematica + MaFgLib + este mod.
-2. Carga un schematic y crea/selecciona un placement en Forgematica.
+2. Carga un schematic y crea/selecciona un placement en Forgematica (`M` → Schematic Placements).
 3. Pulsa **C** y elige **Construir holograma**.
-4. Si te equivocas, vuelve a pulsar **C** y elige **Deshacer**.
+4. Si te equivocas, **C** → **Deshacer**.
 
-## Estado actual
+## Bridge con Forgematica
 
-- Estructura del mod, menú, keybind, consumo de inventario y sistema de deshacer: **listos**.
-- Lectura real del placement de Forgematica: **pendiente de bridge por reflection** (próximo paso).
+Se usa reflection sobre:
 
-## Build
+- `fi.dy.masa.litematica.data.DataManager`
+- `SchematicPlacementManager.getSelectedSchematicPlacement()`
+- Contenedores de regiones del schematic para obtener cada `BlockState`
+
+Así se respetan orientaciones, half slabs, stairs, etc. en la medida en que el container de Litematica los expone.
+
+**Nota:** placements con rotación/espejo complejos pueden necesitar ajuste fino del offset de coordenadas. La primera versión prioriza placements sin rotar.
+
+## Limitaciones actuales
+
+- `setBlock` es client-side: en singleplayer / mundo integrado funciona; en multiplayer dedicado puede no persistir sin lógica de servidor o paquetes.
+- Schematics enormes (>200k bloques por región) se saltan por seguridad.
+- Falta el `gradlew` del MDK de Forge para que GitHub Actions compile el jar automáticamente.
+
+## Build local
+
+Necesitas el wrapper de Gradle del Forge MDK 1.20.1-47.4.5 dentro de `holobuilder/`, luego:
 
 ```bash
 cd holobuilder
@@ -37,7 +53,3 @@ cd holobuilder
 ```
 
 El jar sale en `holobuilder/build/libs/`.
-
-## GitHub Actions
-
-Hay un workflow que compila el mod al hacer push a esta rama.
