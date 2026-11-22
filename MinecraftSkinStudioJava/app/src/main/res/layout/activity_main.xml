@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#060D17"
+    android:orientation="vertical"
+    android:padding="10dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="#0D1E33" android:orientation="vertical" android:padding="8dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Skin Studio 3D • Modo Oscuro Azul" android:textColor="#90CAF9"
+            android:textSize="16sp" android:textStyle="bold" />
+        <TextView android:id="@+id/tvSkinFormatBadge" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="Clásica (4px brazos) • Java / Bedrock"
+            android:textColor="#4FC3F7" android:textSize="11sp" />
+        <RadioGroup android:id="@+id/rgSkinType" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="4dp" android:orientation="horizontal">
+            <RadioButton android:id="@+id/rbClassic" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1" android:buttonTint="#29B6F6"
+                android:text="Clásica (4px)" android:textColor="#E3F2FD" android:textSize="11sp" />
+            <RadioButton android:id="@+id/rbSlim" android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1" android:buttonTint="#29B6F6"
+                android:text="Slim / Corticos (3px)" android:textColor="#E3F2FD" android:textSize="11sp" />
+        </RadioGroup>
+    </LinearLayout>
+    <com.forjastudios.skinstudio.SkinViewport3DView android:id="@+id/viewport3D"
+        android:layout_width="match_parent" android:layout_height="0dp"
+        android:layout_marginTop="6dp" android:layout_weight="1" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="6dp" android:background="#0D1E33" android:orientation="vertical" android:padding="8dp">
+        <TextView android:id="@+id/tvSelectedPart" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="Parte activa: Cabeza"
+            android:textColor="#81D4FA" android:textSize="12sp" android:textStyle="bold" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" android:orientation="horizontal">
+            <Button android:id="@+id/btnPartHead" android:layout_width="0dp" android:layout_height="34dp"
+                android:layout_weight="1" android:backgroundTint="#1565C0" android:text="Cabeza" android:textColor="#FFFFFF" android:textSize="10sp" />
+            <Button android:id="@+id/btnPartHair" android:layout_width="0dp" android:layout_height="34dp"
+                android:layout_marginStart="3dp" android:layout_weight="1" android:backgroundTint="#1976D2" android:text="Pelo" android:textColor="#FFFFFF" android:textSize="10sp" />
+            <Button android:id="@+id/btnPartFace" android:layout_width="0dp" android:layout_height="34dp"
+                android:layout_marginStart="3dp" android:layout_weight="1" android:backgroundTint="#1E88E5" android:text="Cara" android:textColor="#FFFFFF" android:textSize="10sp" />
+            <Button android:id="@+id/btnPartChest" android:layout_width="0dp" android:layout_height="34dp"
+                android:layout_marginStart="3dp" android:layout_weight="1" android:backgroundTint="#0D47A1" android:text="Pecho" android:textColor="#FFFFFF" android:textSize="10sp" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="3dp" android:orientation="horizontal">
+            <Button android:id="@+id/btnPartArms" android:layout_width="0dp" android:layout_height="34dp"
+                android:layout_weight="1" android:backgroundTint="#1565C0" android:text="Brazos" android:textColor="#FFFFFF" android:textSize="10sp" />
+            <Button android:id="@+id/btnPartHands" android:layout_width="0dp" android:layout_height="34dp"
+                android:layout_marginStart="3dp" android:layout_weight="1" android:backgroundTint="#1976D2" android:text="Manos" android:textColor="#FFFFFF" android:textSize="10sp" />
+            <Button android:id="@+id/btnPartLegs" android:layout_width="0dp" android:layout_height="34dp"
+                android:layout_marginStart="3dp" android:layout_weight="1" android:backgroundTint="#0D47A1" android:text="Piernas" android:textColor="#FFFFFF" android:textSize="10sp" />
+            <Button android:id="@+id/btnPartShoes" android:layout_width="0dp" android:layout_height="34dp"
+                android:layout_marginStart="3dp" android:layout_weight="1" android:backgroundTint="#102A43" android:text="Zapatos" android:textColor="#90CAF9" android:textSize="10sp" />
+        </LinearLayout>
+        <TextView android:id="@+id/tvColorInfo" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="6dp" android:text="Paleta • Azul Cielo #29B6F6" android:textColor="#4FC3F7" android:textSize="11sp" />
+        <HorizontalScrollView android:id="@+id/hsvPaletteScroll" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="4dp" android:scrollbars="none" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="6dp" android:orientation="horizontal">
+            <Button android:id="@+id/btnUniversalWheel" android:layout_width="0dp" android:layout_height="36dp"
+                android:layout_weight="1.4" android:backgroundTint="#0288D1" android:text="Rueda Universal (∞)" android:textColor="#FFFFFF" android:textSize="10sp" />
+            <Button android:id="@+id/btnEraser" android:layout_width="0dp" android:layout_height="36dp"
+                android:layout_marginStart="4dp" android:layout_weight="1" android:backgroundTint="#102A43" android:text="Borrador" android:textColor="#90CAF9" android:textSize="10sp" />
+            <Button android:id="@+id/btnResetCam" android:layout_width="0dp" android:layout_height="36dp"
+                android:layout_marginStart="4dp" android:layout_weight="1" android:backgroundTint="#102A43" android:text="Reset 3D" android:textColor="#90CAF9" android:textSize="10sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
